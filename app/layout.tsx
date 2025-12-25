@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Finbar v0",
-  description: "Basic Next.js application",
+  title: "FINBAR",
+  description: "לוח השקעות אישי",
 };
 
 export default function RootLayout({
@@ -12,9 +12,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="he">
-      <body>{children}</body>
+    <html lang="he" dir="rtl">
+      <body className="min-h-screen bg-zinc-50 text-zinc-900">
+        {children}
+      </body>
     </html>
   );
 }
-

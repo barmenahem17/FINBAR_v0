@@ -1,0 +1,21 @@
+You are working on FINBAR v1 (personal investment dashboard for Bar).
+
+Always read:
+- docs/FINBAR_CONTEXT.md
+before writing code.
+
+Hard rules:
+- UI language: Hebrew only.
+- RTL everywhere by default (dir="rtl"), do not break layout.
+- Next.js App Router + TypeScript. Prefer server actions / route handlers where appropriate.
+- Supabase Auth + Postgres with RLS. Never bypass user scoping. Always filter by auth.uid().
+- Do not add scope (no graphs/advanced analytics/importing brokers) unless explicitly asked.
+- Calculations must be correct: store original currency, convert for display using USDILS.
+- Implement Refresh: one button triggers price+fx fetch and saves snapshots to reduce API calls.
+- Never include secrets in code. Use env vars and .env.local.
+- Always Read FINBAR_Context.md before writing Code.
+
+Code style:
+- Small components, clear naming, minimal dependencies.
+- Validate inputs (zod recommended).
+- Prefer reusable UI components and clean layout.
