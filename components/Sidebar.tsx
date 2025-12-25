@@ -4,20 +4,15 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { createClient } from "../lib/supabase/client";
-
-// Placeholder portfolios
-const MOCK_PORTFOLIOS = [
-  { id: "1", name: "תיק מניות" },
-  { id: "2", name: "תיק קריפטו" },
-  { id: "3", name: "תיק חיסכון" },
-];
+import { Portfolio } from "../types/database";
 
 interface SidebarProps {
   isOpen: boolean;
   onToggle: () => void;
+  portfolios: Portfolio[];
 }
 
-export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
+export default function Sidebar({ isOpen, onToggle, portfolios }: SidebarProps) {
   const router = useRouter();
   const supabase = useMemo(() => createClient(), []);
 
@@ -70,18 +65,26 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
             </h3>
           )}
           <nav className="space-y-1">
-            {MOCK_PORTFOLIOS.map((portfolio) => (
-              <Link
-                key={portfolio.id}
-                href={`/portfolios/${portfolio.id}`}
-                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors ${
-                  !isOpen ? "justify-center" : ""
-                }`}
-              >
-                <span className="w-2 h-2 rounded-full bg-zinc-600" />
-                {isOpen && <span className="text-sm">{portfolio.name}</span>}
-              </Link>
-            ))}
+            {portfolios.length === 0 ? (
+              isOpen && (
+                <p className="text-xs text-zinc-500 px-3">
+                  אין תיקים עדיין
+                </p>
+              )
+            ) : (
+              portfolios.map((portfolio) => (
+                <Link
+                  key={portfolio.id}
+                  href={`/portfolios/${portfolio.id}`}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-zinc-300 hover:bg-zinc-800 hover:text-white transition-colors ${
+                    !isOpen ? "justify-center" : ""
+                  }`}
+                >
+                  <span className="w-2 h-2 rounded-full bg-zinc-600" />
+                  {isOpen && <span className="text-sm">{portfolio.name}</span>}
+                </Link>
+              ))
+            )}
           </nav>
         </div>
 
@@ -131,4 +134,3 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
     </>
   );
 }
-
