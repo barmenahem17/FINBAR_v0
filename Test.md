@@ -1,1 +1,0 @@
-FINBAR v0
